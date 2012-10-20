@@ -1,0 +1,6 @@
+[submodule "meta-stlinux"]
+	path = meta-stlinux
+	url = https://github.com/project-magpie/meta-stlinux.git
+[submodule "meta-poky"]
+	path = meta-poky
+	url = http://git.yoctoproject.org/git/poky

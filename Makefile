@@ -23,9 +23,11 @@ TMPDIR = $(TOPDIR)/tmp
 DEPDIR = $(TOPDIR)/.deps
 
 BBLAYERS ?= \
-	$(CURDIR)/meta-openembedded/meta-oe \
-	$(CURDIR)/openembedded-core/meta \
 	$(CURDIR)/meta-magpie \
+	$(CURDIR)/meta-stlinux \
+	$(CURDIR)/meta-poky/meta \
+	$(CURDIR)/meta-poky/meta-yocto \
+	$(CURDIR)/meta-poky/meta-yocto-bsp \
 	$(CURDIR)/meta-local
 
 CONFFILES = \
@@ -56,7 +58,7 @@ all: init
 	@echo
 	@echo " MACHINE=$(MACHINE) make image"
 	@echo "	or"
-	@echo " cd $(BUILD_DIR) ; source env.source ; bitbake magpie-enigma2-image"
+	@echo " cd $(BUILD_DIR) ; source env.source ; bitbake flight-school-image"
 	@echo
 
 $(BBLAYERS):
@@ -68,7 +70,7 @@ init: $(BBLAYERS) $(CONFFILES)
 
 image: init
 	@echo 'Building image for $(MACHINE)'
-	@. $(TOPDIR)/env.source && cd $(TOPDIR) && bitbake magpie-enigma2-image
+	@. $(TOPDIR)/env.source && cd $(TOPDIR) && bitbake flight-school-image 
 
 update:
 	@echo 'Updating Git repositories...'
@@ -94,7 +96,8 @@ BITBAKE_ENV_HASH := $(call hash, \
 
 $(TOPDIR)/env.source: $(DEPDIR)/.env.source.$(BITBAKE_ENV_HASH)
 	@echo 'Generating $@'
-	@echo 'export PATH=$(CURDIR)/openembedded-core/scripts:$(CURDIR)/bitbake/bin:$${PATH}' >> $@
+	@echo 'export PATH=$(CURDIR)/meta-poky/scripts:$(CURDIR)/meta-poky/bitbake/bin:$${PATH}' >> $@
+	@echo 'export BUILDDIR=$(BUILD_DIR)' >> $@
 
 MAGPIE_CONF_HASH := $(call hash, \
 	'MAGPIE_CONF_VERSION = "1"' \
@@ -156,7 +159,7 @@ BBLAYERS_CONF_HASH := $(call hash, \
 $(TOPDIR)/conf/bblayers.conf: $(DEPDIR)/.bblayers.conf.$(MACHINE).$(BBLAYERS_CONF_HASH)
 	@echo 'Generating $@'
 	@test -d $(@D) || mkdir -p $(@D)
-	@echo 'LCONF_VERSION = "4"' >> $@
+	@echo 'LCONF_VERSION = "6"' >> $@
 	@echo 'BBFILES = ""' >> $@
 	@echo 'BBLAYERS = "$(BBLAYERS)"' >> $@
 

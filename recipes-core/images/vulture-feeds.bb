@@ -43,4 +43,7 @@ RRECOMMENDS = "\
 	ntp \
 	tcpdump \
         gdbserver \
+        gdb \
+        directfb \
+        directfb-examples \
 	"

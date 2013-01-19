@@ -10,7 +10,6 @@ inherit task
 
 #
 #	djmount \
-#	dvbsnoop \
 #	dvdfs \
 #	hdparm \
 #	htop \
@@ -46,4 +45,5 @@ RRECOMMENDS = "\
         gdb \
         directfb \
         directfb-examples \
+	dvbsnoop \
 	"

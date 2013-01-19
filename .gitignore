@@ -10,3 +10,6 @@
 *.lai
 *.la
 *.a
+
+# vim swap files
+*.sw?

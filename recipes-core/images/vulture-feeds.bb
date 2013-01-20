@@ -46,4 +46,5 @@ RRECOMMENDS = "\
         directfb \
         directfb-examples \
 	dvbsnoop \
-	"
+        libstb-hal \
+"

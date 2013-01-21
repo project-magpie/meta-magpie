@@ -8,14 +8,9 @@ ARM_INSTRUCTION_SET = "arm"
 # faac faad2 lame schroedinger libgsm
 DEPENDS = "zlib libogg libvorbis libtheora ${@base_conditional('ENTERPRISE_DISTRO', '1', '', 'liba52', d)}"
 
-INC_PR = "r4"
+INC_PR = "r5"
 
 inherit autotools pkgconfig
-
-#        --enable-libgsm \
-#        --enable-libmp3lame \
-#        --enable-libschroedinger \
-#        --enable-libvpx \
 
 B = "${S}/build.${HOST_SYS}.${TARGET_SYS}"
 
@@ -23,31 +18,51 @@ FULL_OPTIMIZATION_armv7a = "-fexpensive-optimizations -fomit-frame-pointer -O4 -
 BUILD_OPTIMIZATION = "${FULL_OPTIMIZATION}"
 
 EXTRA_FFCONF_armv7a = "--cpu=cortex-a8"
+
+
+EXTRA_FFCONF_sh4 = " \
+                    --arch=sh4 \
+                    --enable-ffmpeg \
+                    --enable-demuxers \
+                    --enable-parser=mjpeg \
+                    --enable-demuxer=mjpeg \
+                    --enable-decoder=mjpeg \
+                    --enable-encoder=mpeg2video \
+                    --enable-muxer=mpeg2video \
+                    --disable-bsfs \
+"
+
 EXTRA_FFCONF ?= ""
 
 EXTRA_OECONF = " \
+	--disable-encoders \
+	--disable-muxers \
+        --disable-ffplay \
+        --disable-ffserver \
+        ${EXTRA_FFCONF} \
+	--enable-decoder=dvbsub \
+        --enable-demuxer=mpegps \
+	--disable-devices \
+        --disable-mmx \
+        --disable-altivec \
+	--disable-protocols \
+        --enable-protocol=file \
+	--disable-zlib \
+        --enable-bzlib \
+	--disable-network \
+        --disable-ffprobe \
+	--disable-static \
         --enable-shared \
-        --enable-pthreads \
-        --enable-gpl \
-        --enable-postproc \
-        --enable-avfilter \
-        \
+	--enable-debug \
+        --enable-stripping \
         --cross-prefix=${TARGET_PREFIX} \
         --prefix=${prefix} \
-        \
-        --enable-ffserver \
-        --enable-ffplay \
-        --enable-x11grab \
-        --enable-libtheora  \
-        --enable-libvorbis \
         --arch=${TARGET_ARCH} \
         --target-os="linux" \
         --enable-cross-compile \
         --extra-cflags="${TARGET_CFLAGS} ${HOST_CC_ARCH}${TOOLCHAIN_OPTIONS}" \
         --extra-ldflags="${TARGET_LDFLAGS}" \
         --sysroot="${STAGING_DIR_TARGET}" \
-        --enable-hardcoded-tables \
-        ${EXTRA_FFCONF} \
 "
 
 #| yasm not found, use --disable-yasm for a crippled build

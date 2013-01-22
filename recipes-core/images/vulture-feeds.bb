@@ -47,4 +47,5 @@ RRECOMMENDS = "\
         directfb-examples \
 	dvbsnoop \
         libstb-hal \
+        neutrino-mp \
 "

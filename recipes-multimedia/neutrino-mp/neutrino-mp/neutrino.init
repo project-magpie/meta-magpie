@@ -1,0 +1,51 @@
+#!/bin/sh
+export PATH=/sbin:/bin:/usr/bin:/usr/sbin
+
+# because of the rsync-excludes, this might be necessary:
+for i in tuxtxt zapit links; do
+	[ -e /var/tuxbox/config/$i ] || mkdir -p /var/tuxbox/config/$i
+done
+[ -e /share/fonts/neutrino.ttf ] || ln -s md_khmurabi_10.ttf /share/fonts/neutrino.ttf
+
+MESSAGE=:
+type -p drivertool > /dev/null && MESSAGE="drivertool VFD_SET_TEXT"
+
+# spark: find out if we are running on HDMI or on SCART...
+if [ -e /sys/class/stmcoredisplay/hdmi0.0/hotplug ]; then
+	read H < /sys/class/stmcoredisplay/hdmi0.0/hotplug
+	if [ "$H" = n ]; then
+		if ! [ -e /var/tuxbox/config/neutrino.conf ]; then
+			# first boot... set framebuffer to the correct resolution
+			echo "pal" > /proc/stb/video/videomode
+		fi
+		export NEUTRINO_DEFAULT_SCART=yes
+	fi
+	echo
+	echo "HDMI detected: $H"
+	echo "NEUTRINO_DEFAULT_SCART: ${NEUTRINO_DEFAULT_SCART:-no}"
+	echo
+fi
+
+# touch /tmp/norestart
+until neutrino; do
+	RET=$?
+	echo "Neutrino exited with exit code $RET"
+	$MESSAGE "neutrino:$RET"
+	while [ -e /tmp/norestart ]; do # for debugging: stop the restart loop
+		sleep 1;
+	done
+	if [ $RET = 1 ]; then
+		touch /tmp/.halt
+		break;
+	fi
+done
+
+$MESSAGE "start_n ends"
+if [ -e /tmp/.reboot ]; then # gets created by neutrino
+	$MESSAGE "rebooting..."
+	reboot
+fi
+if [ -e /tmp/.halt ]; then
+	$MESSAGE "shutting down..."
+	poweroff
+fi

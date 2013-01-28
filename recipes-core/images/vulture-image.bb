@@ -8,7 +8,7 @@ IMAGE_INSTALL = "task-core-boot task-core-ssh-dropbear  ${ROOTFS_PKGMANAGE_BOOTS
 IMAGE_INSTALL += "jpeg freetype \
                   libcrypto \
                   libssl \
-		  gstreamer \
+                  ntp \
 " 
 IMAGE_FEATURES += "package-management"
 
@@ -20,5 +20,5 @@ inherit core-image
 
 DEPENDS = " vulture-feeds"
 
-IMAGE_ROOTFS_SIZE = "81920"
+IMAGE_ROOTFS_SIZE = "163840"
 

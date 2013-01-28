@@ -5,10 +5,7 @@ export PATH=/sbin:/bin:/usr/bin:/usr/sbin
 for i in tuxtxt zapit links; do
 	[ -e /var/tuxbox/config/$i ] || mkdir -p /var/tuxbox/config/$i
 done
-[ -e /share/fonts/neutrino.ttf ] || ln -s md_khmurabi_10.ttf /share/fonts/neutrino.ttf
 
-MESSAGE=:
-type -p drivertool > /dev/null && MESSAGE="drivertool VFD_SET_TEXT"
 
 # spark: find out if we are running on HDMI or on SCART...
 if [ -e /sys/class/stmcoredisplay/hdmi0.0/hotplug ]; then
@@ -26,26 +23,32 @@ if [ -e /sys/class/stmcoredisplay/hdmi0.0/hotplug ]; then
 	echo
 fi
 
-# touch /tmp/norestart
-until neutrino; do
-	RET=$?
-	echo "Neutrino exited with exit code $RET"
-	$MESSAGE "neutrino:$RET"
-	while [ -e /tmp/norestart ]; do # for debugging: stop the restart loop
-		sleep 1;
-	done
-	if [ $RET = 1 ]; then
-		touch /tmp/.halt
-		break;
-	fi
-done
+case "$1" in
+  start)
+    echo -n "Starting neutrino"
+    start-stop-daemon --start --quiet --exec neutrino &
+    echo "."
+    ;;
+  stop)
+    echo -n "Stopping neutrino"
+    start-stop-daemon --stop --quiet --exec neutrino 
+    echo "."
+    ;;
+  reload|force-reload)
+    start-stop-daemon --stop --quiet --signal 1 --exec neutrino
+    ;;
+  restart)
+    echo -n "Stopping neutrino"
+    start-stop-daemon --stop --quiet --exec neutrino 
+    sleep 1
+    echo -n "Starting neutrino"
+    start-stop-daemon --start --quiet --exec neutrino &
+    echo "."
+    ;;
+  *)
+    echo "Usage: /etc/init.d/lircd {start|stop|reload|restart|force-reload}"
+    exit 1
+esac
 
-$MESSAGE "start_n ends"
-if [ -e /tmp/.reboot ]; then # gets created by neutrino
-	$MESSAGE "rebooting..."
-	reboot
-fi
-if [ -e /tmp/.halt ]; then
-	$MESSAGE "shutting down..."
-	poweroff
-fi
+exit 0
+

@@ -6,11 +6,12 @@ LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/COPYING.GPL;md5=751419260aa954499f7abaabaa882bbe \
 "
 
-DEPENDS = " libass libstb-hal curl libid3tag libmad freetype boost libungif libdvbsi++ ffmpeg flac tremor libvorbis openthreads" 
+DEPENDS = " libass libstb-hal curl libid3tag libmad freetype boost libungif libdvbsi++ ffmpeg flac tremor libvorbis openthreads hdparm" 
+RDEPENS += "pic2m2v hdparm"
 
 SRCREV = "c1dd39b42ed1bb555cb80433c1d7d86ffc490fc9"
 PV = "0.0+git${SRCPV}"
-PR = "r4"
+PR = "r9"
 
 SRC_URI = " \
             git://gitorious.org/neutrino-mp/neutrino-mp.git;protocol=git \
@@ -21,7 +22,12 @@ SRC_URI = " \
 
 S = "${WORKDIR}/git"
 
-inherit autotools pkgconfig
+inherit autotools pkgconfig update-rc.d
+
+INITSCRIPT_PACKAGES   = "${PN}"
+INITSCRIPT_NAME_${PN} = "neutrino"
+INITSCRIPT_PARAMS_${PN} = "start 99 5 2 . stop 20 0 1 6 ."
+
 
 CFLAGS_append = "-Wall -W -Wshadow -g -O2 -fno-strict-aliasing -rdynamic -DNEW_LIBCURL"
 CFLAGS_spark += "-funsigned-char \
@@ -51,10 +57,14 @@ EXTRA_OECONF_spark7162 += "\
                      --with-boxtype=spark \
 "
 
-do_install_append () {
-
-	install -d ${D}/${sysconfdir}/init.d
+do_install_prepend () {
+        install -d ${D}/${sysconfdir}/init.d
         install -m 755 ${WORKDIR}/neutrino.init ${D}/${sysconfdir}/init.d/neutrino
+        install -d ${D}/share/tuxbox/neutrino/httpd-y
+        install -d ${D}/share/tuxbox/neutrino/httpd
+        install -d ${D}/share/fonts
+        install -d ${D}/share/tuxbox/neutrino/icons
+        install -d ${D}/var/cache
 }
 
 FILES_${PN} += "\
@@ -66,4 +76,20 @@ FILES_${PN} += "\
                /usr/share/tuxbox/neutrino \
                /usr/share/iso-codes \
                /usr/share/fonts \
+               /share/tuxbox/neutrino/httpd-y \
+               /share/tuxbox/neutrino/httpd \
+               /share/fonts \
+               /share/tuxbox \
+               /var/cache \
 "
+
+pkg_postinst_${PN} () {
+         #
+         # if the tool is not installed, bail out
+         which pic2m2v >/dev/null 2>&1 || exit 0
+         #
+         # neutrino icon path
+         I=/usr/share/tuxbox/neutrino/icons
+         pic2m2v $I/mp3.jpg $I/radiomode.jpg $I/scan.jpg $I/shutdown.jpg $I/start.jpg
+}
+

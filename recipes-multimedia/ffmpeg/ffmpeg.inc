@@ -8,7 +8,7 @@ ARM_INSTRUCTION_SET = "arm"
 # faac faad2 lame schroedinger libgsm
 DEPENDS = "zlib libogg libvorbis libtheora ${@base_conditional('ENTERPRISE_DISTRO', '1', '', 'liba52', d)}"
 
-INC_PR = "r5"
+INC_PR = "r6"
 
 inherit autotools pkgconfig
 
@@ -83,7 +83,7 @@ do_install_append() {
 }
 
 FFMPEG_LIBS = "libavcodec libavdevice libavformat \
-               libavutil libpostproc libswscale libavfilter"
+               libavutil libpostproc libswscale libavfilter libswresample"
 
 PACKAGES += "${PN}-vhook-dbg ${PN}-vhook"
 
@@ -104,6 +104,7 @@ PACKAGES += "ffmpeg-x264-presets \
              libswscale  libswscale-dev  libswscale-dbg \
              libavfilter libavfilter-dev libavfilter-dbg \
              libavcore   libavcore-dev   libavcore-dbg \
+             libswresample   libswresample-dev   libswresample-dbg \
             "
 
 FILES_ffmpeg-x264-presets = "${datadir}/*.ffpreset"
@@ -142,3 +143,9 @@ FILES_libavfilter-dbg += "${libdir}/.debug/libavfilter*"
 FILES_libavcore = "${libdir}/libavcore*.so.*"
 FILES_libavcore-dev = "${libdir}/libavcore*.so ${libdir}/pkgconfig/libavcore.pc ${libdir}/libavcore*.a"
 FILES_libavcore-dbg += "${libdir}/.debug/libavcore*"
+
+FILES_libswresample = "${libdir}/libswresample*.so.*"
+FILES_libswresample-dev = "${libdir}/libswresample*.so ${libdir}/pkgconfig/libswresample.pc ${libdir}/libswresample*.a"
+FILES_libswresample-dbg += "${libdir}/.debug/libswresample*"
+
+

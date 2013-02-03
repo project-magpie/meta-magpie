@@ -47,5 +47,11 @@ RRECOMMENDS = "\
         directfb-examples \
 	dvbsnoop \
         libstb-hal \
+        compat-wireless-all \
+        iw \
+        wpa-supplicant \
+        firmware-htc7010 \
+        firmware-htc9271 \
+        crda \
         neutrino-mp \
 "

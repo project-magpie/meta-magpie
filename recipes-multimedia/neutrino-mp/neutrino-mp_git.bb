@@ -32,6 +32,8 @@ INITSCRIPT_PARAMS_${PN} = "start 99 5 2 . stop 20 0 1 6 ."
 CFLAGS_append = "-Wall -W -Wshadow -g -O2 -fno-strict-aliasing -rdynamic -DNEW_LIBCURL"
 CFLAGS_spark += "-funsigned-char \
 "
+CFLAGS_spark7162 += "-funsigned-char \
+"
 CXXFLAGS += "${CFLAGS}"
 
 LDFLAGS += " -Wl,-rpath-link,${STAGING_DIR_HOST}/usr/lib -lavformat"
@@ -55,6 +57,8 @@ EXTRA_OECONF_spark += "\
 
 EXTRA_OECONF_spark7162 += "\
                      --with-boxtype=spark \
+                     --with-stb-hal-includes=${STAGING_DIR_HOST}/usr/include/libstbhal/libstbhal \
+		     --with-stb-hal-build=${STAGING_DIR_HOST}/usr/lib \
 "
 
 do_install_prepend () {

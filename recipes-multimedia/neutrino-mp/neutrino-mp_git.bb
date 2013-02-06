@@ -7,17 +7,20 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/COPYING.GPL;md5=751419260aa954499f7abaabaa
 "
 
 DEPENDS = " libass libstb-hal curl libid3tag libmad freetype boost libungif libdvbsi++ ffmpeg flac tremor libvorbis openthreads hdparm" 
-RDEPENS += "pic2m2v hdparm"
+RDEPENDS += "ffmpeg pic2m2v hdparm tzdata"
+
 
 SRCREV = "c1dd39b42ed1bb555cb80433c1d7d86ffc490fc9"
 PV = "0.0+git${SRCPV}"
-PR = "r9"
+PR = "r11.2"
 
 SRC_URI = " \
             git://gitorious.org/neutrino-mp/neutrino-mp.git;protocol=git \
             file://COPYING.GPL \
             file://0001-removed-the-not-needed-subdirectory-from-device.patch \
             file://neutrino.init \
+            file://standby.on \
+            file://timezone.xml \
 "
 
 S = "${WORKDIR}/git"
@@ -69,6 +72,10 @@ do_install_prepend () {
         install -d ${D}/share/fonts
         install -d ${D}/share/tuxbox/neutrino/icons
         install -d ${D}/var/cache
+        install -d ${D}/var/tuxbox/config/
+        install -m 755 ${WORKDIR}/standby.on ${D}/var/tuxbox/config/
+        install -m 755 ${WORKDIR}/standby.on ${D}/var/tuxbox/config/deepstandby.on 
+        install -m 644 ${WORKDIR}/timezone.xml ${D}/${sysconfdir}
 }
 
 FILES_${PN} += "\
@@ -88,12 +95,11 @@ FILES_${PN} += "\
 "
 
 pkg_postinst_${PN} () {
-         #
-         # if the tool is not installed, bail out
-         which pic2m2v >/dev/null 2>&1 || exit 0
-         #
-         # neutrino icon path
-         I=/usr/share/tuxbox/neutrino/icons
-         pic2m2v $I/mp3.jpg $I/radiomode.jpg $I/scan.jpg $I/shutdown.jpg $I/start.jpg
+	# if the tool is not installed, bail out
+	which pic2m2v >/dev/null 2>&1 || exit 0
+	#
+	# neutrino icon path
+	I=/usr/share/tuxbox/neutrino/icons
+	pic2m2v $I/mp3.jpg $I/radiomode.jpg $I/scan.jpg $I/shutdown.jpg $I/start.jpg
 }
 

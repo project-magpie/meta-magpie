@@ -9,6 +9,7 @@ IMAGE_INSTALL += "jpeg freetype \
                   libcrypto \
                   libssl \
                   ntp \
+                  vsftpd \
 " 
 IMAGE_FEATURES += "package-management"
 

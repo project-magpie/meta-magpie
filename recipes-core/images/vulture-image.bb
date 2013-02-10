@@ -10,8 +10,10 @@ IMAGE_INSTALL += "jpeg freetype \
                   libssl \
                   ntp \
                   vsftpd \
-" 
-IMAGE_FEATURES += "package-management"
+                  neutrino-mp \
+"
+
+IMAGE_FEATURES += " package-management "
 
 IMAGE_LINGUAS = " "
 

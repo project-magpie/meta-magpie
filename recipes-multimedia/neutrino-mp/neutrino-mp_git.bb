@@ -6,18 +6,38 @@ LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/COPYING.GPL;md5=751419260aa954499f7abaabaa882bbe \
 "
 
-DEPENDS = " libass libstb-hal curl libid3tag libmad freetype boost libungif libdvbsi++ ffmpeg flac tremor libvorbis openthreads hdparm" 
-RDEPENDS += "ffmpeg pic2m2v hdparm tzdata"
+DEPENDS += " libass \
+             libstb-hal \
+             curl \
+             libid3tag \
+             libmad \
+             freetype \
+             boost \
+             libungif \
+             libdvbsi++ \
+             ffmpeg \
+             flac \
+             tremor \
+             libvorbis \
+             openthreads \
+" 
+
+RDEPENDS_${PN} += " \
+             ffmpeg \
+             pic2m2v \
+             tzdata \
+"
 
 
 SRCREV = "c1dd39b42ed1bb555cb80433c1d7d86ffc490fc9"
 PV = "0.0+git${SRCPV}"
-PR = "r11.2"
+PR = "r11.4"
 
 SRC_URI = " \
             git://gitorious.org/neutrino-mp/neutrino-mp.git;protocol=git \
             file://COPYING.GPL \
             file://0001-removed-the-not-needed-subdirectory-from-device.patch \
+            file://0001-fixed-nhttpd-web-root-path.patch \
             file://neutrino.init \
             file://standby.on \
             file://timezone.xml \

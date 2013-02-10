@@ -6,6 +6,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=a6067ad950b28336613aed9dd47b1271"
 
 DEPENDS = "libcap"
 
+PR = "r1"
+
 SRC_URI = "https://security.appspot.com/downloads/vsftpd-2.3.5.tar.gz \
            file://makefile.patch \
            file://nopam.patch \
@@ -32,6 +34,7 @@ do_install() {
         install -d ${D}${sysconfdir}
         install -m 0755 ${WORKDIR}/vsftpd.conf ${D}${sysconfdir}/vsftpd.conf
         install -d ${D}${sysconfdir}/init.d/
+        install -d ${D}/var/share/empty
         install -m 755 ${WORKDIR}/init ${D}${sysconfdir}/init.d/vsftpd
 }
 

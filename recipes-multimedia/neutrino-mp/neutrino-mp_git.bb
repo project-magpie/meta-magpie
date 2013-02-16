@@ -31,7 +31,7 @@ RDEPENDS_${PN} += " \
 
 SRCREV = "c1dd39b42ed1bb555cb80433c1d7d86ffc490fc9"
 PV = "0.0+git${SRCPV}"
-PR = "r11.4"
+PR = "r12"
 
 SRC_URI = " \
             git://gitorious.org/neutrino-mp/neutrino-mp.git;protocol=git \
@@ -45,7 +45,7 @@ SRC_URI = " \
 
 S = "${WORKDIR}/git"
 
-inherit autotools pkgconfig update-rc.d
+inherit autotools pkgconfig update-rc.d 
 
 INITSCRIPT_PACKAGES   = "${PN}"
 INITSCRIPT_NAME_${PN} = "neutrino"
@@ -64,11 +64,13 @@ LDFLAGS += " -Wl,-rpath-link,${STAGING_DIR_HOST}/usr/lib -lavformat"
 
 EXTRA_OEMAKE += " 'LIBS=-lavformat' "
 
-EXTRA_OECONF += "\
+
+EXTRA_OECONF += " \
                      --enable-maintainer-mode \
                      --with-target=cdk \
                      --enable-silent-rules \
-                     --with-tremor --disable-upnp \
+                     --with-tremor \
+                     --disable-upnp \
 "
 
 EXTRA_OECONF_spark += "\
@@ -115,11 +117,16 @@ FILES_${PN} += "\
 "
 
 pkg_postinst_${PN} () {
-	# if the tool is not installed, bail out
-	which pic2m2v >/dev/null 2>&1 || exit 0
+        update-alternatives --install /bin/backup.sh backup.sh /usr/bin/backup.sh 100
+        update-alternatives --install /bin/install.sh install.sh /usr/bin/install.sh 100
+        update-alternatives --install /bin/restore.sh restore.sh /usr/bin/restore.sh 100
+	
+        which pic2m2v >/dev/null 2>&1 
 	#
 	# neutrino icon path
 	I=/usr/share/tuxbox/neutrino/icons
 	pic2m2v $I/mp3.jpg $I/radiomode.jpg $I/scan.jpg $I/shutdown.jpg $I/start.jpg
+
 }
+
 

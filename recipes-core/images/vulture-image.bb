@@ -5,7 +5,11 @@ DESCRIPTION = "A small image just capable of allowing a device to boot."
 
 IMAGE_INSTALL = "task-core-boot task-core-ssh-dropbear  ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}" 
 
-IMAGE_INSTALL += "jpeg freetype \
+IMAGE_INSTALL += " \
+                  autofs \
+                  portmap \
+                  nfs-utils-client \
+                  jpeg freetype \
                   libcrypto \
                   libssl \
                   ntp \

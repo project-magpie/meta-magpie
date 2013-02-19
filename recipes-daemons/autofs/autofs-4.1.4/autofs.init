@@ -68,7 +68,7 @@ daemonoptions='--ghost '
 #
 # load custom settings
 #
-TIMEOUT=5
+TIMEOUT=300
 DISABLE_DIRECT=1
 DAEMON_EXIT_WAIT=20
 

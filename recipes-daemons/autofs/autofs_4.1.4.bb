@@ -2,9 +2,9 @@ SUMMARY = "kernel-based automounter for Linux"
 SECTION = "base"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
-PR = "r10.1"
+PR = "r10.4"
 
-SRC_URI = "${KERNELORG_MIRROR}/linux/daemons/autofs/v4/${BP}.tar.bz2 \
+SRC_URI = "${KERNELORG_MIRROR}/linux/daemons/autofs/v4/${BP}.tar.gz \
            file://020_auto_net_path_sortlocale_mountoptions.patch \
            file://037_let_debian_rules_decide_on_CFLAGS.patch \
            file://042_default_auto_master_all_commented_out.patch \
@@ -45,8 +45,8 @@ SRC_URI = "${KERNELORG_MIRROR}/linux/daemons/autofs/v4/${BP}.tar.bz2 \
            file://autofs.init \
            file://volatiles.99_autofs \
 "
-SRC_URI[md5sum] = "7e3949114c00665b4636f0c318179657"
-SRC_URI[sha256sum] = "e25caa0e9639ea54dd7c4f21e8146ac9859a61fa126f397edf874b5fdc147430"
+SRC_URI[md5sum] = "c092d27caa36c9ac160466ebb4c1cdfa"
+SRC_URI[sha256sum] = "d5265d3175c9975604d7e672b18643130f9efe061c9edd55b7a91d003781c395"
 
 S = "${WORKDIR}/${BP}"
 

@@ -30,3 +30,11 @@ DEPENDS = " vulture-feeds"
 
 IMAGE_ROOTFS_SIZE = "163840"
 
+# set root password to "spark" without quotes ;-)
+ROOTFS_POSTPROCESS_COMMAND += "\
+sed 's%^root:[^:]*:%root:XdpstHmIRdvUo:%' \
+< ${IMAGE_ROOTFS}/etc/shadow \
+> ${IMAGE_ROOTFS}/etc/shadow.new;\
+mv ${IMAGE_ROOTFS}/etc/shadow.new ${IMAGE_ROOTFS}/etc/shadow ; \
+"
+

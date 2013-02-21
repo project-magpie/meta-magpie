@@ -42,6 +42,7 @@ SRC_URI = " \
             file://neutrino.init \
             file://standby.on \
             file://timezone.xml \
+            file://40-event.rules \
 "
 
 S = "${WORKDIR}/git"

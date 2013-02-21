@@ -29,9 +29,9 @@ RDEPENDS_${PN} += " \
 "
 
 
-SRCREV = "c1dd39b42ed1bb555cb80433c1d7d86ffc490fc9"
+SRCREV = "b5e0a7e064ec6140163ef47678cb0681d4dbcb3a"
 PV = "0.0+git${SRCPV}"
-PR = "r12"
+PR = "r12.3"
 
 SRC_URI = " \
             git://gitorious.org/neutrino-mp/neutrino-mp.git;protocol=git \

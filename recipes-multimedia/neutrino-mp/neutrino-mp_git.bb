@@ -26,6 +26,7 @@ RDEPENDS_${PN} += " \
              ffmpeg \
              pic2m2v \
              tzdata \
+             fbshot \
 "
 
 

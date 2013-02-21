@@ -89,6 +89,8 @@ EXTRA_OECONF_spark7162 += "\
 
 do_install_prepend () {
         install -d ${D}/${sysconfdir}/init.d
+        install -d ${D}/${sysconfdir}/udev/rules.d
+        install -m 755 ${WORKDIR}/40-event.rules ${D}/${sysconfdir}/udev/rules.d
         install -m 755 ${WORKDIR}/neutrino.init ${D}/${sysconfdir}/init.d/neutrino
         install -d ${D}/share/tuxbox/neutrino/httpd-y
         install -d ${D}/share/tuxbox/neutrino/httpd

@@ -1,0 +1,22 @@
+Index: fbshot-0.3/Makefile
+===================================================================
+--- fbshot-0.3.orig/Makefile	2002-11-08 15:31:34.000000000 +0100
++++ fbshot-0.3/Makefile	2013-02-19 20:43:14.788741333 +0100
+@@ -4,12 +4,13 @@
+ ###
+ 
+ all:
+-	gcc fbshot.c -lpng -lz -o fbshot
+-	strip fbshot
++	$(CC) fbshot.c -lpng -lz -o fbshot
+ 
+ install:
+-	install fbshot /usr/bin/fbshot
+-	install fbshot.1.man /usr/man/man1/fbshot.1
++	install -d $(DESTDIR)/bin/
++	install -d $(DESTDIR)/usr/man/man1/
++	install fbshot $(DESTDIR)/bin/
++	install fbshot.1.man $(DESTDIR)/usr/man/man1/fbshot.1
+ 
+ clean:
+ 	rm fbshot

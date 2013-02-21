@@ -1,0 +1,16 @@
+diff --git a/fbshot.c b/fbshot.c
+index 703eb47..17edc42 100644
+--- a/fbshot.c
++++ b/fbshot.c
+@@ -371,7 +371,11 @@ else
+       for (i=0; i<(pict->yres); i++)
+         row_pointers[i]=pict->buffer+i*4*(pict->xres);
+       if(pict->bgr)
++#ifdef HW_tripledragon
++        png_set_swap_alpha(png_ptr);
++#else
+         png_set_bgr(png_ptr);
++#endif
+       else /* i'm not sure if the invert_alpha is related to pict->bgr --seife */
+         png_set_invert_alpha(png_ptr);
+       break;

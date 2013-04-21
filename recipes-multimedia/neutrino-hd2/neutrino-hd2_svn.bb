@@ -38,6 +38,8 @@ SRC_URI = " \
             svn://neutrinohd2.googlecode.com/svn/branches;module=nhd2-exp;proto=http \
 	    file://COPYING.GPL \
 	    file://0001-libungif.patch \
+        file://neutrino.init \
+        file://40-event.rules \
 "
 
 S = "${WORKDIR}/nhd2-exp"
@@ -69,23 +71,24 @@ EXTRA_OECONF += " \
 do_install_prepend () {
         install -d ${D}/${sysconfdir}/init.d
         install -d ${D}/${sysconfdir}/udev/rules.d
-#        install -m 755 ${WORKDIR}/40-event.rules ${D}/${sysconfdir}/udev/rules.d
-#        install -m 755 ${WORKDIR}/neutrino.init ${D}/${sysconfdir}/init.d/neutrino
+        install -m 755 ${WORKDIR}/40-event.rules ${D}/${sysconfdir}/udev/rules.d
+        install -m 755 ${WORKDIR}/neutrino.init ${D}/${sysconfdir}/init.d/neutrino
         install -d ${D}/share/tuxbox/neutrino/httpd-y
         install -d ${D}/share/tuxbox/neutrino/httpd
         install -d ${D}/share/fonts
         install -d ${D}/share/tuxbox/neutrino/icons
         install -d ${D}/var/cache
+        install -d ${D}/var/etc
         install -d ${D}/var/tuxbox/config/
 #        install -m 755 ${WORKDIR}/standby.on ${D}/var/tuxbox/config/
 #        install -m 755 ${WORKDIR}/standby.on ${D}/var/tuxbox/config/deepstandby.on 
 #        install -m 644 ${WORKDIR}/timezone.xml ${D}/${sysconfdir}
 
         # generate /.version
-        echo "version=${SRCREV}${DATETIME:0:12}" > ${D}/.version
-	echo "creator=${MAINTAINER}" >> ${D}/.version
-	echo "imagename=${DISTRO_NAME}" >> ${D}/.version
-	echo "homepage=http://neutrinohd2.googlecode.com" >> ${D}/.version
+        echo "version=${SRCREV}" > ${D}/var/etc/.version
+        echo "creator=${MAINTAINER}" >> ${D}/var/etc/.version
+        echo "imagename=${DISTRO_NAME}" >> ${D}/var/etc/.version
+        echo "homepage=http://neutrinohd2.googlecode.com" >> ${D}/var/etc/.version
 }
 
 FILES_${PN} += "\

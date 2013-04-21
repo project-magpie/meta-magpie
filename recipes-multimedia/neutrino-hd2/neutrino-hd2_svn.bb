@@ -16,8 +16,6 @@ DEPENDS += " libass \
              libungif \
              libdvbsi++ \
              ffmpeg \
-             gstreamer \
-             gst-plugins-base \
              flac \
              tremor \
              libvorbis \
@@ -34,7 +32,7 @@ RDEPENDS_${PN} += " \
 
 SRCREV = "1309"
 PV = "0.0+svn${SRCPV}"
-PR = "r1.0"
+PR = "r1.1"
 
 SRC_URI = " \
             svn://neutrinohd2.googlecode.com/svn/branches;module=nhd2-exp;proto=http \
@@ -91,6 +89,7 @@ do_install_prepend () {
 }
 
 FILES_${PN} += "\
+               /.version \
                ${sysconfdir} \
                /usr/share \
                /usr/share/tuxbox \

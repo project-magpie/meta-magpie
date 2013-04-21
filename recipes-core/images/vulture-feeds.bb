@@ -54,4 +54,5 @@ RRECOMMENDS = "\
         firmware-htc9271 \
         crda \
         neutrino-mp \
+        neutrino-hd2 \
 "

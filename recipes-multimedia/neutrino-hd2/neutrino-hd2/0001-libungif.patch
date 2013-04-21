@@ -1,0 +1,12 @@
+diff -ur a/src/Makefile.am b/src/Makefile.am
+--- a/src/Makefile.am	2012-08-30 00:08:47.000000000 +0200
++++ b/src/Makefile.am	2012-08-30 00:46:03.000000000 +0200
+@@ -68,7 +68,7 @@
+ 	@MAD_LIBS@ \
+ 	@ID3TAG_LIBS@ \
+ 	@VORBISIDEC_LIBS@ \
+-	-ljpeg -lgif -lrt -lpthread -lblkid -ldl -lFLAC -lavformat -lavcodec -lavutil
++	-ljpeg -lungif -lrt -lpthread -lblkid -ldl -lFLAC -lavformat -lavcodec -lavutil
+ 
+ if ENABLE_LIBEPLAYER3
+ neutrino_LDADD += $(top_builddir)/lib/libeplayer3/libeplayer3.a

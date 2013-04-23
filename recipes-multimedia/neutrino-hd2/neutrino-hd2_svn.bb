@@ -38,8 +38,8 @@ SRC_URI = " \
             svn://neutrinohd2.googlecode.com/svn/branches;module=nhd2-exp;proto=http \
 	    file://COPYING.GPL \
 	    file://0001-libungif.patch \
-        file://neutrino.init \
-        file://40-event.rules \
+            file://neutrino.init \
+            file://40-event.rules \
 "
 
 S = "${WORKDIR}/nhd2-exp"
@@ -92,7 +92,7 @@ do_install_prepend () {
 }
 
 FILES_${PN} += "\
-               /.version \
+               /var/etc \
                ${sysconfdir} \
                /usr/share \
                /usr/share/tuxbox \
@@ -113,11 +113,10 @@ pkg_postinst_${PN} () {
         update-alternatives --install /bin/install.sh install.sh /usr/bin/install.sh 100
         update-alternatives --install /bin/restore.sh restore.sh /usr/bin/restore.sh 100
 	
-#        which pic2m2v >/dev/null 2>&1 
-#	#
-#	# neutrino icon path
-#	I=/usr/share/tuxbox/neutrino/icons
-#	pic2m2v $I/mp3.jpg $I/radiomode.jpg $I/scan.jpg $I/shutdown.jpg $I/start.jpg
+	#
+	# neutrino icon path
+	I=/usr/share/tuxbox/neutrino/icons
+	pic2m2v $I/mp3.jpg $I/radiomode.jpg $I/scan.jpg $I/shutdown.jpg $I/start.jpg
 
 }
 

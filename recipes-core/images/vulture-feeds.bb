@@ -9,7 +9,6 @@ PR = "r4"
 inherit task
 
 #
-#	djmount \
 #	dvdfs \
 #	hdparm \
 #	htop \
@@ -21,20 +20,21 @@ inherit task
 #	openssh \
 #	parted \
 #	procps \
-#	rsync \
 #	samba \
 #	smartmontools \
-#	strace \
 #	ushare \
 #	wakelan \
-#	zeroconf \
 #	dosfstools \
-#	avahi-ui \
 
 
 
 
 RRECOMMENDS = "\
+	strace \
+	rsync \
+	djmount \
+	zeroconf \
+	avahi \
 	vim \
 	openvpn \
 	mtd-utils \

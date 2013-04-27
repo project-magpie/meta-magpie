@@ -20,19 +20,21 @@ DEPENDS += " libass \
              tremor \
              libvorbis \
              openthreads \
+             iso-codes \
 " 
 
+#             pic2m2v \
 RDEPENDS_${PN} += " \
              ffmpeg \
-             pic2m2v \
              tzdata \
              fbshot \
 "
 
+RCONFLICTS_${PN} = "neutrino-mp"
 
 SRCREV = "1309"
 PV = "0.0+svn${SRCPV}"
-PR = "r1.1"
+PR = "r1.4"
 
 SRC_URI = " \
             svn://neutrinohd2.googlecode.com/svn/branches;module=nhd2-exp;proto=http \

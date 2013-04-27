@@ -29,6 +29,7 @@ RDEPENDS_${PN} += " \
              fbshot \
 "
 
+RCONFLICTS_${PN} = "neutrino-hd2"
 
 SRCREV = "b5e0a7e064ec6140163ef47678cb0681d4dbcb3a"
 PV = "0.0+git${SRCPV}"

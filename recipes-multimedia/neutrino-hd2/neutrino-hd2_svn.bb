@@ -115,10 +115,10 @@ pkg_postinst_${PN} () {
         update-alternatives --install /bin/install.sh install.sh /usr/bin/install.sh 100
         update-alternatives --install /bin/restore.sh restore.sh /usr/bin/restore.sh 100
 	
-	#
-	# neutrino icon path
-	I=/usr/share/tuxbox/neutrino/icons
-	pic2m2v $I/mp3.jpg $I/radiomode.jpg $I/scan.jpg $I/shutdown.jpg $I/start.jpg
+#	#
+#	# neutrino icon path
+#	I=/usr/share/tuxbox/neutrino/icons
+#	pic2m2v $I/mp3.jpg $I/radiomode.jpg $I/scan.jpg $I/shutdown.jpg $I/start.jpg
 
 }
 

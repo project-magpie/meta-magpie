@@ -20,6 +20,8 @@ DEPENDS += " libass \
              tremor \
              libvorbis \
              openthreads \
+             lua5.2 \
+             luaposix \
 " 
 
 RDEPENDS_${PN} += " \
@@ -27,13 +29,16 @@ RDEPENDS_${PN} += " \
              pic2m2v \
              tzdata \
              fbshot \
+             lua5.2 \
+             luaposix \
 "
 
 RCONFLICTS_${PN} = "neutrino-hd2"
 
-SRCREV = "b5e0a7e064ec6140163ef47678cb0681d4dbcb3a"
+#SRCREV = "c7a4927b53f674323931471b05b83a455a0e6506"
+SRCREV = "e92afd2b420f2e53cf45a79b29b9898df406fe2b"
 PV = "0.0+git${SRCPV}"
-PR = "r12.3"
+PR = "r15"
 
 SRC_URI = " \
             git://gitorious.org/neutrino-mp/neutrino-mp.git;protocol=git \
@@ -55,14 +60,12 @@ INITSCRIPT_NAME_${PN} = "neutrino"
 INITSCRIPT_PARAMS_${PN} = "start 99 5 2 . stop 20 0 1 6 ."
 
 
-CFLAGS_append = "-Wall -W -Wshadow -g -O2 -fno-strict-aliasing -rdynamic -DNEW_LIBCURL"
-
-CXXFLAGS += "${CFLAGS}"
-
-LDFLAGS += " -Wl,-rpath-link,${STAGING_DIR_HOST}/usr/lib -lavformat"
+N_CFLAGS = "-Wall -W -Wshadow -g -O2 -fno-strict-aliasing -funsigned-char -rdynamic -DNEW_LIBCURL -DDYNAMIC_LUAPOSIX"
+N_CXXFLAGS = "${N_CFLAGS}"
+N_LDFLAGS += "-Wl,-rpath-link,${STAGING_DIR_HOST}/usr/lib -lavformat"
 
 
-EXTRA_OEMAKE += " 'LIBS=-lavformat' "
+EXTRA_OEMAKE += " 'LIBS=-lavformat'" 
 
 
 EXTRA_OECONF += " \
@@ -73,6 +76,24 @@ EXTRA_OECONF += " \
                      --disable-upnp \
 "
 
+
+EXTRA_OECONF_spark += "\
+                     --with-boxtype=spark \
+                     --with-stb-hal-includes=${STAGING_DIR_HOST}/usr/include/libstbhal/libstbhal \
+                     --with-stb-hal-build=${STAGING_DIR_HOST}/usr/lib \
+"
+
+
+EXTRA_OECONF_spark7162 += "\
+                     --with-boxtype=spark \
+                     --with-stb-hal-includes=${STAGING_DIR_HOST}/usr/include/libstbhal/libstbhal \
+                     --with-stb-hal-build=${STAGING_DIR_HOST}/usr/lib \
+"
+
+do_compile () {
+	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
+	oe_runmake CFLAGS="${N_CFLAGS}" CXXFLAGS="${N_CXXFLAGS}" LDFLAGS="${N_LDFLAGS}"
+}
 
 
 do_install_prepend () {

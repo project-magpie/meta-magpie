@@ -53,6 +53,9 @@ RRECOMMENDS = "\
         firmware-htc7010 \
         firmware-htc9271 \
         crda \
+        git \
+	mtd-utils \
         neutrino-mp \
+        neutrino-hd-plugins \
         neutrino-hd2 \
 "

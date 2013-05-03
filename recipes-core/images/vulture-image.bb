@@ -15,6 +15,7 @@ IMAGE_INSTALL += " \
                   libssl \
                   ntp \
                   vsftpd \
+                  ntpdate \
                   neutrino-mp \
 "
 

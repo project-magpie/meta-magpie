@@ -38,7 +38,7 @@ RCONFLICTS_${PN} = "neutrino-hd2"
 #SRCREV = "c7a4927b53f674323931471b05b83a455a0e6506"
 SRCREV = "e92afd2b420f2e53cf45a79b29b9898df406fe2b"
 PV = "0.0+git${SRCPV}"
-PR = "r15"
+PR = "r16.3"
 
 SRC_URI = " \
             git://gitorious.org/neutrino-mp/neutrino-mp.git;protocol=git \
@@ -107,12 +107,18 @@ do_install_prepend () {
         install -d ${D}/share/tuxbox/neutrino/icons
         install -d ${D}/var/cache
         install -d ${D}/var/tuxbox/config/
+        install -d ${D}/var/tuxbox/plugins/
         install -m 755 ${WORKDIR}/standby.on ${D}/var/tuxbox/config/
         install -m 755 ${WORKDIR}/standby.on ${D}/var/tuxbox/config/deepstandby.on 
         install -m 644 ${WORKDIR}/timezone.xml ${D}/${sysconfdir}
+        echo "version=1200`date +%Y%m%d%H%M`"    > ${D}/.version 
+        echo "creator=${MAINTAINER}"             >> ${D}/.version 
+        echo "imagename=Neutrino-MP"             >> ${D}/.version 
+        echo "homepage=${HOMEPAGE}"              >> ${D}/.version 
 }
 
 FILES_${PN} += "\
+	       /.version \
                ${sysconfdir} \
                /usr/share \
                /usr/share/tuxbox \
@@ -126,6 +132,7 @@ FILES_${PN} += "\
                /share/fonts \
                /share/tuxbox \
                /var/cache \
+               /var/tuxbox/plugins \
 "
 
 pkg_postinst_${PN} () {
@@ -138,6 +145,10 @@ pkg_postinst_${PN} () {
 	# neutrino icon path
 	I=/usr/share/tuxbox/neutrino/icons
 	pic2m2v $I/mp3.jpg $I/radiomode.jpg $I/scan.jpg $I/shutdown.jpg $I/start.jpg
+
+}
+
+pkg_prerm_${PN} () {
 
 }
 

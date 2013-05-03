@@ -26,12 +26,12 @@ fi
 case "$1" in
   start)
     echo -n "Starting neutrino"
-    start-stop-daemon --start --quiet --exec neutrino &
+    start-stop-daemon --start --oknodo --name neutrino  -b -m --pidfile /var/run/neutrino.pid --exec neutrino
     echo "."
     ;;
   stop)
     echo -n "Stopping neutrino"
-    start-stop-daemon --stop --quiet --exec neutrino 
+    start-stop-daemon --stop --oknodo --name neutrino --pidfile /var/run/neutrino.pid --retry 5
     echo "."
     ;;
   reload|force-reload)
@@ -46,7 +46,7 @@ case "$1" in
     echo "."
     ;;
   *)
-    echo "Usage: /etc/init.d/lircd {start|stop|reload|restart|force-reload}"
+    echo "Usage: /etc/init.d/neutrino {start|stop|reload|restart|force-reload}"
     exit 1
 esac
 

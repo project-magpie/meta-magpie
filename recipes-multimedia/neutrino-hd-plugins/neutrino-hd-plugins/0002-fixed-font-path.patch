@@ -1,0 +1,28 @@
+From c5d2a4349e4e7664d4c2c302c01174e0365cb82a Mon Sep 17 00:00:00 2001
+From: Christian Ege <k4230r6@googlemail.com>
+Date: Wed, 1 May 2013 21:55:42 +0200
+Subject: [PATCH] fixed font path
+
+---
+ tuxcom/tuxcom.h |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tuxcom/tuxcom.h b/tuxcom/tuxcom.h
+index c24972e..5861adb 100644
+--- a/tuxcom/tuxcom.h
++++ b/tuxcom/tuxcom.h
+@@ -279,9 +279,9 @@ int rcaltgrtable[] =
+ 
+ //freetype stuff
+ 
+-#define FONT "/share/fonts/neutrino.ttf"
++#define FONT "/usr/share/fonts/neutrino.ttf"
+ // if font is not in usual place, we look here:
+-#define FONT2 "/share/fonts/pakenham.ttf"
++#define FONT2 "/usr/share/fonts/pakenham.ttf"
+ 
+ enum {LANG_INT,LANG_DE, LANG_IT, LANG_SV, LANG_PT};
+ enum {RC_NORMAL,RC_EDIT};
+-- 
+1.7.7
+

@@ -54,6 +54,7 @@ RRECOMMENDS = "\
         firmware-htc9271 \
         crda \
         git \
+        edid-decode \
 	mtd-utils \
         neutrino-mp \
         neutrino-hd-plugins \

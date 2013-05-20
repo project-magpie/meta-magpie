@@ -20,10 +20,8 @@ DEPENDS += " libass \
              tremor \
              libvorbis \
              openthreads \
-             iso-codes \
 " 
 
-#             pic2m2v \
 RDEPENDS_${PN} += " \
              ffmpeg \
              tzdata \
@@ -46,7 +44,11 @@ SRC_URI = " \
 
 S = "${WORKDIR}/nhd2-exp"
 
+
+
 inherit autotools pkgconfig update-rc.d 
+
+
 
 INITSCRIPT_PACKAGES   = "${PN}"
 INITSCRIPT_NAME_${PN} = "neutrino"
@@ -90,6 +92,7 @@ do_install_prepend () {
         echo "version=${SRCREV}" > ${D}/var/etc/.version
         echo "creator=${MAINTAINER}" >> ${D}/var/etc/.version
         echo "imagename=${DISTRO_NAME}" >> ${D}/var/etc/.version
+        echo "builddate=`date +%Y%m%d%H%M`" >> ${D}/var/etc/.version
         echo "homepage=http://neutrinohd2.googlecode.com" >> ${D}/var/etc/.version
 }
 

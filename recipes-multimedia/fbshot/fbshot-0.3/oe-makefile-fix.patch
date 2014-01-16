@@ -14,9 +14,9 @@ Index: fbshot-0.3/Makefile
 -	install fbshot /usr/bin/fbshot
 -	install fbshot.1.man /usr/man/man1/fbshot.1
 +	install -d $(DESTDIR)/bin/
-+	install -d $(DESTDIR)/usr/man/man1/
++	install -d $(MANDIR)/man1/
 +	install fbshot $(DESTDIR)/bin/
-+	install fbshot.1.man $(DESTDIR)/usr/man/man1/fbshot.1
++	install fbshot.1.man $(MANDIR)/man1/fbshot.1
  
  clean:
  	rm fbshot

@@ -1,0 +1,12 @@
+Index: fbshot-0.3/fbshot.c
+===================================================================
+--- fbshot-0.3.orig/fbshot.c
++++ fbshot-0.3/fbshot.c
+@@ -45,6 +45,7 @@
+ #include <sys/utsname.h>
+ 
+ #include <sys/vt.h>
++#include <zlib.h>
+ #include <png.h>
+ #include <linux/fb.h> 
+ 

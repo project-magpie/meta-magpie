@@ -15,6 +15,7 @@ SRC_URI = " \
         file://oe-makefile-fix.patch \
         file://fbshot-0.3-32bit_cs_fb.diff \
         file://fbshot-0.3-32bit_td_fb.diff \
+        file://fix_zlib_include.patch \
 "
 
 SRC_URI[md5sum] = "2cc6cc25cdc4cd447a8b0a9662907635"
@@ -30,7 +31,7 @@ do_compile() {
 }
 
 do_install() {
-	 oe_runmake  'DESTDIR=${D}'  install
+	 oe_runmake  'DESTDIR=${D}' 'MANDIR=${D}${mandir}' install
 }
 
 #FILES_${PN}-dbg += "/bin/fbshot/.debug"

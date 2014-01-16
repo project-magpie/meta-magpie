@@ -6,28 +6,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384
 PV = "1.0"
 PR = "r4"
 
-inherit task
-
-#
-#	dvdfs \
-#	hdparm \
-#	htop \
-#	minidlna \
-#	nano \
-#	ntfs-3g \
-#	ntp \
-#	openresolv \
-#	openssh \
-#	parted \
-#	procps \
-#	samba \
-#	smartmontools \
-#	ushare \
-#	wakelan \
-#	dosfstools \
-
-
-
+inherit packagegroup
 
 RRECOMMENDS = "\
 	strace \

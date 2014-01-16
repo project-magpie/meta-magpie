@@ -8,12 +8,18 @@ DEPENDS = ""
 SRCDATE = "${PV}"
 PR = "r1"
 
-SRC_URI = "svn://www.openscenegraph.org/svn/osg/OpenThreads;module=trunk;rev=13083;proto=http \
-           file://0001-seifes-atomic_void_ptr_fix.patch;pnum=3 \
+SRC_URI = "https://gitorious.org/neutrino-hd/buildsystem-cs/raw/archive-patches/sources/OpenThreads-svn-13083.tar.lzma \
            file://002-omit-policy-cmp0014.patch;pnum=0 \
 "
 
-S = "${WORKDIR}/trunk"
+SRC_URI[md5sum] = "e3e1853207acbc65a9f4f008851125fe"
+SRC_URI[sha256sum] = "a745a62950689b9cf39c8213047a8f0403ebd82c488be301578d7b6906615184"
+
+S = "${WORKDIR}/OpenThreads-svn-13083/"
+
+do_unpack() {
+	lzcat ${DL_DIR}/OpenThreads-svn-13083.tar.lzma | tar x
+}
 
 inherit cmake 
 

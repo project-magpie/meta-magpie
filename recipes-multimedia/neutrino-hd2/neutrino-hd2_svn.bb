@@ -30,16 +30,16 @@ RDEPENDS_${PN} += " \
 
 RCONFLICTS_${PN} = "neutrino-mp"
 
-SRCREV = "1309"
+SRCREV = "2123"
 PV = "0.0+svn${SRCPV}"
-PR = "r1.4"
+PR = "r2"
 
 SRC_URI = " \
-            svn://neutrinohd2.googlecode.com/svn/branches;module=nhd2-exp;proto=http \
+            svn://neutrinohd2.googlecode.com/svn/branches;module=nhd2-exp;protocol=http \
 	    file://COPYING.GPL \
-	    file://0001-libungif.patch \
             file://neutrino.init \
             file://40-event.rules \
+	    file://configure_checks_workarround.patch \
 "
 
 S = "${WORKDIR}/nhd2-exp"

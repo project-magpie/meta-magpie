@@ -10,6 +10,7 @@ PR = "r1"
 
 SRC_URI = "https://security.appspot.com/downloads/vsftpd-2.3.5.tar.gz \
            file://makefile.patch \
+           file://makefile-strip.patch \
            file://nopam.patch \
            file://init \
            file://vsftpd.conf"

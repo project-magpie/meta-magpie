@@ -2,7 +2,10 @@ SUMMARY = "kernel-based automounter for Linux"
 SECTION = "base"
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3"
-PR = "r10.4"
+PR = "r11"
+
+# for kernel .config
+DEPENDS += "virtual/kernel"
 
 SRC_URI = "${KERNELORG_MIRROR}/linux/daemons/autofs/v4/${BP}.tar.gz \
            file://020_auto_net_path_sortlocale_mountoptions.patch \
@@ -56,7 +59,13 @@ do_configure_prepend () {
         if [ ! -e acinclude.m4 ]; then
                 cp aclocal.m4 acinclude.m4
         fi
+	# todo: check if these only are correct with busybox...
+	export ac_cv_path_MOUNT=/bin/mount
+	export ac_cv_path_UMOUNT=/bin/umount
+	export ac_cv_path_E2FSCK=/sbin/fsck.ext2
+	export ac_cv_path_E3FSCK=/sbin/fsck.ext3
 }
+
 do_install () {
         oe_runmake 'INSTALLROOT=${D}' install
         install -d ${D}${sysconfdir}/default
@@ -68,9 +77,28 @@ do_install () {
         install -m 644 ${WORKDIR}/auto.network ${D}${sysconfdir}/auto.network
         install -d ${D}${sysconfdir}/default/volatiles
         install -m 644 ${WORKDIR}/volatiles.99_autofs ${D}${sysconfdir}/default/volatiles/99_autofs
+	rmdir ${D}/var/run/autofs ${D}/var/run
 }
 
+CONFFILES_${PN} = " \
+	${sysconfdir}/auto.hotplug \
+	${sysconfdir}/auto.master \
+	${sysconfdir}/auto.network \
+	${sysconfdir}/default/* \
+"
+
+# function to find out if we need kernel-module-autofs4
+# todo: check if the "virtual/kernel" dep is enough to make sure the config is present.
+def autofs4_module_dep(bb, d):
+    if not os.path.isfile(d.getVar('STAGING_DIR_HOST', True) + "/usr/src/kernel/.config"):
+        return ""
+    for line in open(d.getVar('STAGING_DIR_HOST', True) + "/usr/src/kernel/.config"):
+        if "CONFIG_AUTOFS4_FS=m" in line:
+            return "kernel-module-autofs4"
+    return ""
+
 RDEPENDS_${PN} = "procps"
+RDEPENDS_${PN} += "${@autofs4_module_dep(bb, d)}"
 
 INITSCRIPT_NAME = "autofs"
 INITSCRIPT_PARAMS = "defaults"

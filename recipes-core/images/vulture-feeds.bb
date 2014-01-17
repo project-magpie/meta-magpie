@@ -4,15 +4,15 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384
 
 
 PV = "1.0"
-PR = "r4"
+PR = "r5"
 
-inherit packagegroup
 
-RRECOMMENDS = "\
+ALLOW_EMPTY_${PN} = "1"
+
+RRECOMMENDS_${PN} = "\
 	strace \
 	rsync \
 	djmount \
-	zeroconf \
 	avahi \
 	vim \
 	openvpn \
@@ -21,9 +21,6 @@ RRECOMMENDS = "\
 	ntp \
 	tcpdump \
         gdbserver \
-        gdb \
-        directfb \
-        directfb-examples \
 	dvbsnoop \
         libstb-hal \
         compat-wireless-all \

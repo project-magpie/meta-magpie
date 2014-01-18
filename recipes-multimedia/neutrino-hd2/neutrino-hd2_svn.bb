@@ -20,7 +20,7 @@ DEPENDS += " libass \
              tremor \
              libvorbis \
              openthreads \
-" 
+"
 
 RDEPENDS_${PN} += " \
              ffmpeg \
@@ -36,17 +36,17 @@ PR = "r2"
 
 SRC_URI = " \
             svn://neutrinohd2.googlecode.com/svn/branches;module=nhd2-exp;protocol=http \
-	    file://COPYING.GPL \
+	          file://COPYING.GPL \
             file://neutrino.init \
             file://40-event.rules \
-	    file://configure_checks_workarround.patch \
+	          file://configure_checks_workarround.patch \
 "
 
 S = "${WORKDIR}/nhd2-exp"
 
 
 
-inherit autotools pkgconfig update-rc.d 
+inherit autotools pkgconfig update-rc.d
 
 
 
@@ -85,7 +85,7 @@ do_install_prepend () {
         install -d ${D}/var/etc
         install -d ${D}/var/tuxbox/config/
 #        install -m 755 ${WORKDIR}/standby.on ${D}/var/tuxbox/config/
-#        install -m 755 ${WORKDIR}/standby.on ${D}/var/tuxbox/config/deepstandby.on 
+#        install -m 755 ${WORKDIR}/standby.on ${D}/var/tuxbox/config/deepstandby.on
 #        install -m 644 ${WORKDIR}/timezone.xml ${D}/${sysconfdir}
 
         # generate /.version
@@ -117,7 +117,7 @@ pkg_postinst_${PN} () {
         update-alternatives --install /bin/backup.sh backup.sh /usr/bin/backup.sh 100
         update-alternatives --install /bin/install.sh install.sh /usr/bin/install.sh 100
         update-alternatives --install /bin/restore.sh restore.sh /usr/bin/restore.sh 100
-	
+
 #	#
 #	# neutrino icon path
 #	I=/usr/share/tuxbox/neutrino/icons

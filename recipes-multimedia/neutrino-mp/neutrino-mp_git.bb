@@ -55,7 +55,7 @@ SRC_URI = " \
 
 S = "${WORKDIR}/git"
 
-inherit autotools pkgconfig update-rc.d 
+inherit autotools pkgconfig update-rc.d
 
 INITSCRIPT_PACKAGES   = "${PN}"
 INITSCRIPT_NAME_${PN} = "neutrino"
@@ -82,10 +82,10 @@ do_install_prepend () {
 	install -d ${D}/var/cache
 	install -d ${D}/var/tuxbox/config/
 	install -d ${D}/var/tuxbox/plugins/
-	echo "version=1200`date +%Y%m%d%H%M`"    > ${D}/.version 
-	echo "creator=${MAINTAINER}"             >> ${D}/.version 
-	echo "imagename=Neutrino-MP"             >> ${D}/.version 
-	echo "homepage=${HOMEPAGE}"              >> ${D}/.version 
+	echo "version=1200`date +%Y%m%d%H%M`"    > ${D}/.version
+	echo "creator=${MAINTAINER}"             >> ${D}/.version
+	echo "imagename=Neutrino-MP"             >> ${D}/.version
+	echo "homepage=${HOMEPAGE}"              >> ${D}/.version
 	update-rc.d -r ${D} custom-poweroff start 89 0 .
 }
 

@@ -13,7 +13,7 @@ DEPENDS += " libass \
              libmad \
              freetype \
              boost \
-             libungif \
+             giflib \
              libdvbsi++ \
              ffmpeg \
              flac \
@@ -36,10 +36,11 @@ PR = "r2"
 
 SRC_URI = " \
             svn://neutrinohd2.googlecode.com/svn/branches;module=nhd2-exp;protocol=http \
-	          file://COPYING.GPL \
+	    file://COPYING.GPL \
             file://neutrino.init \
             file://40-event.rules \
-	          file://configure_checks_workarround.patch \
+            file://configure_checks_workarround.patch \
+            file://allow_usage_of_giflib_instead_of_libungif.patch \
 "
 
 S = "${WORKDIR}/nhd2-exp"
@@ -67,6 +68,7 @@ EXTRA_OEMAKE += " 'LIBS=-lavformat' "
 
 EXTRA_OECONF += " \
                      --enable-libeplayer3 \
+                     --enable-giflib \
                      --with-boxtype=${MACHINE} \
 "
 

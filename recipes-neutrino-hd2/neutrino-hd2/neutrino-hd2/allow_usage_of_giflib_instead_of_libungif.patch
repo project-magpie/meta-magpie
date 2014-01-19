@@ -1,0 +1,44 @@
+Index: nhd2-exp/configure.ac
+===================================================================
+--- nhd2-exp.orig/configure.ac
++++ nhd2-exp/configure.ac
+@@ -149,6 +149,19 @@ if test "$enable_fribidi" = "yes"; then
+ AC_DEFINE(ENABLE_FRIBIDI,1,[include fribidi support])
+ fi
+ 
++# giflib instead of libungif
++AC_ARG_ENABLE(giflib,
++	AS_HELP_STRING(--enable-giflib,use giflib instead of libungif),
++	,[enable_giflib=no])
++
++AM_CONDITIONAL(ENABLE_GIFLIB,test "$enable_giflib" = "yes")
++if test "$enable_giflib" = "yes"; then
++	AC_DEFINE(ENABLE_GIFLIB,1,[use giflib instead of libungif])
++fi
++
++
++
++
+ AC_OUTPUT([
+ Makefile
+ lib/Makefile
+Index: nhd2-exp/src/Makefile.am
+===================================================================
+--- nhd2-exp.orig/src/Makefile.am
++++ nhd2-exp/src/Makefile.am
+@@ -66,7 +66,14 @@ neutrino_LDADD = \
+ 	@PNG_LIBS@ \
+ 	@MAD_LIBS@ \
+ 	@ID3TAG_LIBS@ \
+-	-ljpeg -lungif -lrt -lpthread -lblkid -ldl -lFLAC -lavformat -lavcodec -lavutil
++	-ljpeg -lrt -lpthread -lblkid -ldl -lFLAC -lavformat -lavcodec -lavutil
++
++if ENABLE_GIFLIB
++neutrino_LDADD += -lgif
++else
++neutrino_LDADD += -lungif
++endif
++
+ 
+ neutrino_LDFLAGS = -Wl,--export-dynamic
+ 

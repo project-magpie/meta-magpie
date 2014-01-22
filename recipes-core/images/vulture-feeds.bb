@@ -10,19 +10,16 @@ PR = "r5"
 ALLOW_EMPTY_${PN} = "1"
 
 RRECOMMENDS_${PN} = "\
-	strace \
-	rsync \
-	djmount \
-	avahi \
-	vim \
-	openvpn \
-	mtd-utils \
-	iperf \
-	ntp \
-	tcpdump \
+        strace \
+        rsync \
+        djmount \
+        avahi \
+        openvpn \
+        mtd-utils \
+        iperf \
+        tcpdump \
         gdbserver \
-	dvbsnoop \
-        libstb-hal \
+        dvbsnoop \
         compat-wireless-all \
         iw \
         wpa-supplicant \
@@ -31,8 +28,7 @@ RRECOMMENDS_${PN} = "\
         crda \
         git \
         edid-decode \
-	mtd-utils \
+        mtd-utils \
         neutrino-mp \
         neutrino-hd-plugins \
-        neutrino-hd2 \
 "

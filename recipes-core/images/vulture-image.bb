@@ -1,41 +1,24 @@
 #
-# Copyright (C) 2007 OpenedHand Ltd.
+# This is based on the neutrino image with some extra sugar
 #
-DESCRIPTION = "A small image just capable of allowing a device to boot."
 
-IMAGE_INSTALL = "task-core-boot task-core-ssh-dropbear  ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}" 
+include recipes-images/images/neutrino-image-base.inc
+
 
 IMAGE_INSTALL += " \
-                  kernel-module-autofs4 \
-                  autofs \
-                  portmap \
-                  nfs-utils-client \
-                  jpeg freetype \
-                  libcrypto \
-                  libssl \
-                  ntp \
-                  vsftpd \
-                  ntpdate \
-                  neutrino-mp \
+        neutrino-mp \
+        task-core-ssh-dropbear \
+        openssh-sftp \
+        portmap \
+        nfs-utils \
 "
 
-IMAGE_FEATURES += " package-management "
-
-IMAGE_LINGUAS = " "
-
-LICENSE = "MIT"
-
-inherit core-image
-
-DEPENDS = " vulture-feeds"
-
-IMAGE_ROOTFS_SIZE = "163840"
+DEPENDS="vulture-feeds"
 
 # set root password to "spark" without quotes ;-)
 ROOTFS_POSTPROCESS_COMMAND += "\
 sed 's%^root:[^:]*:%root:XdpstHmIRdvUo:%' \
-< ${IMAGE_ROOTFS}/etc/shadow \
-> ${IMAGE_ROOTFS}/etc/shadow.new;\
-mv ${IMAGE_ROOTFS}/etc/shadow.new ${IMAGE_ROOTFS}/etc/shadow ; \
+< ${IMAGE_ROOTFS}/etc/passwd \
+> ${IMAGE_ROOTFS}/etc/passwd.new;\
+mv ${IMAGE_ROOTFS}/etc/passwd.new ${IMAGE_ROOTFS}/etc/passwd ; \
 "
-

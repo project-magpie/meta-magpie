@@ -1,0 +1,17 @@
+diff --git a/lib/gdi/picload.cpp b/lib/gdi/picload.cpp
+index 8572c44..9165f5a 100644
+--- a/lib/gdi/picload.cpp
++++ b/lib/gdi/picload.cpp
+@@ -531,8 +531,11 @@ static void gif_load(Cfilepara* filepara)
+ 	ColorMapObject *cmap;
+ 	int cmaps;
+ 	int extcode;
+-
++#if defined(GIFLIB_MAJOR) && GIFLIB_MAJOR >= 5
++	gft = DGifOpenFileName(filepara->file,NULL);
++#else
+ 	gft = DGifOpenFileName(filepara->file);
++#endif
+ 	if (gft == NULL)
+ 		return;
+ 	do

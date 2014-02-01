@@ -10,6 +10,7 @@ IMAGE_INSTALL += " \
         openssh-sftp \
         portmap \
         nfs-utils \
+        evremote2 \
         enigma2 \
 "
 
